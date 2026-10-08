@@ -1,46 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ialhusse <ialhusse@student.42vienna.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/07 14:56:25 by ialhusse          #+#    #+#             */
-/*   Updated: 2026/10/07 14:56:27 by ialhusse         ###   ########.fr       */
+/*   Created: 2026/10/08 10:41:48 by ialhusse          #+#    #+#             */
+/*   Updated: 2026/10/08 10:41:56 by ialhusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libft.h"
 
-unsigned int ft_lstsize(t_list *lst)
-{
-    /*
-    unsigned int    i;
-    t_list          *b;
-
-    i = 0;
-    b = lst;
+t_list *ft_lstlast(t_list *lst)
+{  
     if (!lst)
-        return(NULL);
-    while (b->next != NULL)
-    {
-        b = b->next;
-        i++;
-    }
-    return (i);
-    */
-    unsigned int    i;
-
-    i = 0;
-    if (!lst)
-        return (0);
+        return (NULL);
     while (lst != NULL)
     {
         lst = lst->next;
-        i++;
+        if (lst->next == NULL)
+        {
+            return(lst);
+        }   
     }
-    return (i); 
 }
 
 int main(void)
@@ -48,6 +31,7 @@ int main(void)
     t_list *node1;
     t_list *node2;
     t_list *node3;
+    t_list *last;
 
     node1 = malloc(sizeof(t_list));
     node2 = malloc(sizeof(t_list));
@@ -56,16 +40,18 @@ int main(void)
     if (!node1 || !node2 || !node3)
         return (1);
 
-    node1->content = "Hello";
+    node1->content = "First";
     node1->next = node2;
 
-    node2->content = "World";
+    node2->content = "Second";
     node2->next = node3;
 
-    node3->content = "42";
+    node3->content = "Last";
     node3->next = NULL;
 
-    printf("List size: %u\n", ft_lstsize(node1));
+    last = ft_lstlast(node1);
+
+    printf("Last node: %s\n", (char *)last->content);
 
     free(node3);
     free(node2);
